@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface UserProfileRepository extends JpaRepository<UserProfile, Long> {
 
-    Optional<UserProfile> findByNickname(@Param("nickname") String nickname);
+    Optional<UserProfile> findByNickname(String nickname);
 
     @Query("SELECT up FROM UserProfile up WHERE up.phoneNumber LIKE %:key%")
     List<UserProfile> findByPhoneNumberContaining(@Param("key") String key);
@@ -22,7 +22,7 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, Long> 
     @Query("SELECT up FROM UserProfile up WHERE up.nickname LIKE :key%")
     List<UserProfile> findByNicknameStartingWith(@Param("key") String key);
 
-    List<UserProfile> findByCreatedAtAfter(@Param("date") Instant date);
+    List<UserProfile> findByCreatedAtAfter(Instant date);
 
     @Query("SELECT COUNT(up) FROM UserProfile up WHERE up.phoneNumber LIKE :key%")
     long countByPhoneNumberStartingWith(@Param("key") String key);
