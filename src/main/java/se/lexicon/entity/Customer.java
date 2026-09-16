@@ -5,13 +5,13 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
-@EqualsAndHashCode
 
 @Entity
 @Table(name = "customers")
@@ -42,6 +42,11 @@ public class Customer {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "profile_id", unique = true)
     private UserProfile profile;
+
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
+    private List<Order> orders = new ArrayList<>();
+
+
 
     @PrePersist
     public void prePersist() {
