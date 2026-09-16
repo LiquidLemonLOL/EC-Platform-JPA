@@ -9,8 +9,8 @@ import java.time.Instant;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString(exclude = "customer")
-@EqualsAndHashCode(exclude = "customer")
+@ToString
+@EqualsAndHashCode(of = "id")
 
 @Entity
 @Table(name = "user_profiles")
@@ -19,7 +19,6 @@ public class UserProfile {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column (updatable = false)
     private Long id;
 
     @Column (length = 100, nullable = false)
@@ -32,6 +31,7 @@ public class UserProfile {
     private String bio;
 
     @OneToOne(mappedBy = "profile", fetch = FetchType.LAZY)
+    @ToString.Exclude
     private Customer customer;
 
     @Column(nullable = false, updatable = false)

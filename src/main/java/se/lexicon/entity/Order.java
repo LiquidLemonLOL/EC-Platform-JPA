@@ -12,6 +12,8 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = "id")
+@ToString
 
 @Entity
 @Table(name = "orders")
@@ -19,7 +21,6 @@ public class Order {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column (updatable = false)
     private Long id;
 
     @Column (nullable = false)
@@ -30,10 +31,12 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
+    @ToString.Exclude
     private Customer customer;
 
     @NotEmpty(message = "Order must have at least one item")
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<OrderItem> items = new ArrayList<>();
 
     public void addItem(OrderItem item) {

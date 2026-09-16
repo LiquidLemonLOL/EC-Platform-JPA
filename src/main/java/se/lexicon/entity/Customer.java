@@ -12,6 +12,8 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(of = "id")
+@ToString
 
 @Entity
 @Table(name = "customers")
@@ -20,7 +22,6 @@ public class Customer {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column (updatable = false)
     private Long id;
 
     @Column (nullable = false, length = 100)
@@ -41,9 +42,11 @@ public class Customer {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "profile_id", unique = true)
+    @ToString.Exclude
     private UserProfile profile;
 
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY,  cascade = CascadeType.ALL)
+    @ToString.Exclude
     private List<Order> orders = new ArrayList<>();
 
 

@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "id")
 
 @Entity
 @Table(name = "addresses")
@@ -17,7 +17,6 @@ public class Address {
 
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    @Column (updatable = false)
     private Long id;
 
     @Column (nullable = false, length = 100)

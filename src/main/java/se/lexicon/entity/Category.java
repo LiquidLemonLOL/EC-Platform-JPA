@@ -2,6 +2,8 @@ package se.lexicon.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -9,6 +11,8 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
+@EqualsAndHashCode(of = "id")
 
 @Entity
 @Table(name = "categories")
@@ -16,13 +20,17 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false)
     private Long id;
 
     @Column(nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "category")
-    private List<Product> products;
+    @ToString.Exclude
+    private List<Product> products = new ArrayList<>();
+
+    public Category(String name) {
+        this.name = name;
+    }
 
 }
