@@ -43,4 +43,14 @@ public class Product {
     )
     private Set<Promotion> promotions = new HashSet<>();
 
+    public void addPromotion(Promotion promotion) {
+        if (promotion == null) throw new IllegalArgumentException("Promotion cannot be null.");
+        promotions.add(promotion);
+    }
+
+    public void removePromotion(Promotion promotion) {
+        if (promotion == null) throw new IllegalArgumentException("Promotion cannot be null.");
+        promotions.remove(promotion);
+    }
+
 }

@@ -36,6 +36,20 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> items = new ArrayList<>();
 
+    public void addItem(OrderItem item) {
+        if (item == null) throw new IllegalArgumentException("Order item cannot be null.");
+        if (status != OrderStatus.CREATED) throw new IllegalStateException("Cannot add to order, order status is not active or created");
+        items.add(item);
+    }
+
+    public void removeItem(OrderItem item) {
+        if (item == null) throw new IllegalArgumentException("Order item cannot be null.");
+        if (status != OrderStatus.CREATED) throw new IllegalStateException("Cannot remove from order, order status is not active or created");
+        items.remove(item);
+    }
+
+
+
 
 
 }

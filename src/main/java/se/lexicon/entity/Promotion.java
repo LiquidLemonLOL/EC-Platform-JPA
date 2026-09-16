@@ -26,7 +26,7 @@ public class Promotion {
     @Column(nullable = false)
     LocalDate startDate;
 
-    @Column(nullable = false)
+    @Column
     LocalDate endDate;
 
 }
