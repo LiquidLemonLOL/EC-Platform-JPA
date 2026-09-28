@@ -28,4 +28,10 @@ public class Address {
     @Column (nullable = false, length = 10)
     private String zipCode;
 
+    public Address(String street, String city, String zipCode) {
+        this.street = street;
+        this.city = city;
+        this.zipCode = zipCode;
+    }
+
 }

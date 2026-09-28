@@ -33,11 +33,14 @@ public class Customer {
     @Column (unique = true, nullable = false, length = 150)
     private String email;
 
+    @Column (length = 120, nullable = false)
+    private String password;
+
     @Column(nullable = false, updatable = false)
     private Instant createdAt;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id", nullable = false)
     private Address address;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
