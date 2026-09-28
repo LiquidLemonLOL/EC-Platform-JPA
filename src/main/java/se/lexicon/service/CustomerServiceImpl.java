@@ -1,5 +1,6 @@
 package se.lexicon.service;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import se.lexicon.dto.CustomerRequest;
 import se.lexicon.dto.CustomerResponse;
@@ -10,6 +11,7 @@ import se.lexicon.exception.KeyNotFoundException;
 import se.lexicon.mapper.CustomerMapper;
 import se.lexicon.repo.CustomerRepository;
 
+@Service
 public class CustomerServiceImpl implements CustomerService {
 
     private final CustomerRepository customerRepository;

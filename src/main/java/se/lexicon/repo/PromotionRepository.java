@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-public interface PromotionRepository extends JpaRepository<Promotion, Integer> {
+public interface PromotionRepository extends JpaRepository<Promotion, Long> {
 
     @Query("SELECT pro FROM Promotion pro WHERE pro.startDate <= :date AND (pro.endDate IS NULL OR pro.endDate >= :date)")
     List<Promotion> findActiveOnDate(@Param("date") LocalDate date);

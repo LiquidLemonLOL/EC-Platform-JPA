@@ -1,5 +1,6 @@
 package se.lexicon.service;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import se.lexicon.dto.ProductRequest;
 import se.lexicon.dto.ProductResponse;
@@ -12,6 +13,7 @@ import se.lexicon.repo.ProductRepository;
 
 import java.util.List;
 
+@Service
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;

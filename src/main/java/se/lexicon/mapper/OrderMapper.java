@@ -51,18 +51,16 @@ public class OrderMapper {
         );
     }
 
-    public Order toEntity(OrderRequest request, Customer customer, Map<Long, Product> products, Map<Long, BigDecimal> pricesAtPurchase) {
+    public Order toEntity(OrderRequest request, Customer customer, Map<Long, Product> products, Map<Long, BigDecimal> pricesAtPurchase, Instant orderDate) {
         // since order service would use placeOrder, status on start would be CREATED.
         // Sets the needed parts of the order and loads each item request into the order to populate with
         // the items purchased
         Order order = new Order();
         order.setCustomer(customer);
-        order.setOrderDate(Instant.now());
+        order.setOrderDate(orderDate);
         order.setStatus(OrderStatus.CREATED);
 
         for (OrderItemRequest itemRequest : request.items()) {
-            Product product = products.get(itemRequest.productId());
-
             OrderItem item = new OrderItem();
             item.setProduct(products.get(itemRequest.productId()));
             item.setQuantity(itemRequest.quantity());
