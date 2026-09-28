@@ -64,7 +64,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     private Customer getCustomer(Long id) {
         return customerRepository.findById(id)
-                .orElseThrow(() -> new KeyNotFoundException("Customer with id " + id));
+                .orElseThrow(() -> new KeyNotFoundException("Customer with id " + id + " not found"));
     }
 
 }

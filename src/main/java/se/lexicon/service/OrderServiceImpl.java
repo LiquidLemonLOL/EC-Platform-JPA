@@ -55,11 +55,12 @@ public class OrderServiceImpl implements OrderService {
         Customer customer = customerRepository.findById(orderRequest.customerId())
                 .orElseThrow(() -> new KeyNotFoundException("Customer not found: " +  orderRequest.customerId()));
 
-        // find each product per requested item
+        // find each product id per requested item
         List<Long> productIds = orderRequest.items().stream()
                 .map(OrderItemRequest::productId).distinct()
                 .toList();
 
+        // find all products entities through product ids collected
         Map<Long, Product> products = productRepository.findAllById(productIds).stream()
                 .collect(Collectors.toMap(Product::getId, Function.identity()));
 
@@ -70,6 +71,7 @@ public class OrderServiceImpl implements OrderService {
             throw new KeyNotFoundException("Product(s) not found: " +  missingProducts);
         }
 
+        // collect priceAtPurchase, found with best available promotion and added to map with id
         Map<Long, BigDecimal> pricesAtPurchase = new HashMap<>();
         products.forEach((id, product) -> pricesAtPurchase.put(id, priceWithPromotion(product)));
 
