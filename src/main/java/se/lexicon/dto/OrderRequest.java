@@ -10,6 +10,7 @@ public record OrderRequest(
         @NotNull
         Long customerId,
 
+        // @Valid ensures validation for the whole object
         @NotEmpty
         @Valid
         List<OrderItemRequest> items

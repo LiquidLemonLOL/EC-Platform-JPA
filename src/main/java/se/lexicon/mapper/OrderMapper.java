@@ -15,7 +15,10 @@ import java.util.Map;
 @Component
 public class OrderMapper {
 
+    //attaches totalPrice to the order item response
     public OrderItemResponse toOrderItemResponse(OrderItem orderItem) {
+
+        // get priceAtPurchase, multiply by quantity
         BigDecimal totalPrice = orderItem.getPriceAtPurchase()
                 .multiply(BigDecimal.valueOf(orderItem.getQuantity()));
 
@@ -30,12 +33,12 @@ public class OrderMapper {
 
     public OrderResponse toOrderResponse(Order order) {
 
-        // list of all items in order
+        // list of all order items through responses
         List<OrderItemResponse> items = order.getItems().stream()
                 .map(this::toOrderItemResponse)
                 .toList();
 
-        // calculates total price
+        // calculates total price of all order items
         BigDecimal totalPrice = items.stream()
                 .map(OrderItemResponse::totalPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
@@ -60,6 +63,7 @@ public class OrderMapper {
         order.setOrderDate(orderDate);
         order.setStatus(OrderStatus.CREATED);
 
+        // for each order item within order, set its relation to current order
         for (OrderItemRequest itemRequest : request.items()) {
             OrderItem item = new OrderItem();
             item.setOrder(order);

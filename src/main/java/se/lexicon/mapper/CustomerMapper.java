@@ -10,6 +10,7 @@ import se.lexicon.entity.Customer;
 @Component
 public class CustomerMapper {
 
+    // extracts the data from an address to simplify toEntity for customer
     public AddressResponse toAddressResponse(Address address) {
         if (address == null) {
             return null;

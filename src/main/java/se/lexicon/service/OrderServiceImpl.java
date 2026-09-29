@@ -85,8 +85,7 @@ public class OrderServiceImpl implements OrderService {
 
     // helper for subtask 4
     private BigDecimal priceWithPromotion(Product product) {
-        //Need to find best promotion in case of several running
-        // arranges discount percentages of promotions in natural order, larger values last
+        // Need to find best promotion in case of multiple active at the same time
         BigDecimal bestPromotion = promotionService.calculateDiscount(product);
         BigDecimal priceMultiplier = BigDecimal.ONE.subtract(bestPromotion.divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP));
 

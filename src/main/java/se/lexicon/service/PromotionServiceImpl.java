@@ -30,6 +30,8 @@ public class PromotionServiceImpl implements PromotionService {
         this.clock = clock;
     }
 
+
+    // fetches all active promotions regardless of product
     @Override
     @Transactional(readOnly = true)
     public List<PromotionResponse> getActivePromotions() {
@@ -41,7 +43,10 @@ public class PromotionServiceImpl implements PromotionService {
     @Override
     @Transactional(readOnly = true)
     public BigDecimal calculateDiscount(Product product) {
+        // checks day of specified time zone
         LocalDate date = date();
+        // filters to active promotions, maps each discount percentage for all active promotions and picks
+        // largest discount to apply to product
         return product.getPromotions().stream()
                 .filter(p -> isActive(p, date))
                 .map(Promotion::getDiscountPercent)
@@ -49,10 +54,12 @@ public class PromotionServiceImpl implements PromotionService {
                 .orElse(BigDecimal.ZERO);
     }
 
+    // helper function to find specific active promotions in active time zone
     private LocalDate date() {
         return clock.instant().atZone(ZONE).toLocalDate();
     }
 
+    // helper function to check if promotion is active in zone
     private boolean isActive(Promotion promotion, LocalDate date) {
         return !promotion.getStartDate().isAfter(date)
                 && (promotion.getEndDate() == null || !promotion.getEndDate().isBefore(date));

@@ -12,7 +12,6 @@ public record ProductRequest(
         @NotNull(message = "Price cannot be null")
         @DecimalMin(value = "0.0", inclusive = false)
         @Digits(fraction = 2, integer = 8)
-        @Size(max = 60)
         BigDecimal price,
 
         @NotNull(message = "Category ID cannot be null")

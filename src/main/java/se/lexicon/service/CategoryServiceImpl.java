@@ -37,6 +37,8 @@ public class CategoryServiceImpl implements CategoryService {
         return productMapper.toCategoryResponse(category);
     }
 
+
+    // finds all categories, applies toCategoryResponse and returns the list
     @Override
     @Transactional
     public List<CategoryResponse> findAll() {

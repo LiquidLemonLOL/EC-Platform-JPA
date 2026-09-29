@@ -52,7 +52,7 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setFirstName(request.firstName());
         customer.setLastName(request.lastName());
         customer.setEmail(request.email());
-        customer.setPassword(request.password());
+        customer.setPassword(request.password()); // future hashing needed
 
         Address address = customer.getAddress();
         address.setStreet(request.street());
@@ -62,6 +62,7 @@ public class CustomerServiceImpl implements CustomerService {
         return customerMapper.toCustomerResponse(customer);
     }
 
+    //helper function
     private Customer getCustomer(Long id) {
         return customerRepository.findById(id)
                 .orElseThrow(() -> new KeyNotFoundException("Customer with id " + id + " not found"));
