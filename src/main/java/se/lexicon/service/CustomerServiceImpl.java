@@ -11,6 +11,8 @@ import se.lexicon.exception.KeyNotFoundException;
 import se.lexicon.mapper.CustomerMapper;
 import se.lexicon.repo.CustomerRepository;
 
+import java.util.Optional;
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
@@ -35,8 +37,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional
-    public CustomerResponse findById(Long id) {
-        return customerMapper.toCustomerResponse(getCustomer(id));
+    public Optional<CustomerResponse> findById(Long id) {
+        return customerRepository.findById(id)
+                .map(customerMapper::toCustomerResponse);
     }
 
     @Override

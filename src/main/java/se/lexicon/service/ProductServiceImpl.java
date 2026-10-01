@@ -33,7 +33,6 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new KeyNotFoundException("Category not found: " + request.categoryId()));
 
         Product product = productRepository.save(productMapper.toEntity(request, category));
-
         return productMapper.toProductResponse(product);
     }
 

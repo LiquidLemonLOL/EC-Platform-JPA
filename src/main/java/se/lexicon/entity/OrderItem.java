@@ -35,4 +35,10 @@ public class OrderItem {
     @ToString.Exclude
     private Product product;
 
+    public OrderItem(Product product, Integer quantity, BigDecimal priceAtPurchase) {
+        this.quantity = quantity;
+        this.priceAtPurchase = priceAtPurchase;
+        this.product = product;
+    }
+
 }

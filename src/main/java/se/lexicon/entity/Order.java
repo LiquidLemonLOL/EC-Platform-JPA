@@ -43,6 +43,7 @@ public class Order {
         if (item == null) throw new IllegalArgumentException("Order item cannot be null.");
         if (status != OrderStatus.CREATED) throw new IllegalStateException("Cannot add to order, order status is not active or created");
         items.add(item);
+        item.setOrder(this);
     }
 
     public void removeItem(OrderItem item) {

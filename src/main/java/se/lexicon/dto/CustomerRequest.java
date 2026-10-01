@@ -23,14 +23,14 @@ public record CustomerRequest(
         String password,
 
         @NotBlank(message = "Street is required")
-        @Size(min = 6, max = 60)
+        @Size(min = 1, max = 60)
         String street,
 
         @NotBlank(message = "City is required")
-        @Size(min = 6, max = 60)
+        @Size(min = 1, max = 60)
         String city,
 
         @NotBlank(message = "Zip code is required")
-        @Size(min = 6, max = 60)
+        @Size(min = 1, max = 60)
         String zipCode
 ) {}

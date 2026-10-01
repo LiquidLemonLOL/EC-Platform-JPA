@@ -1,0 +1,177 @@
+### Controller endpoints test
+
+@baseUrl = http://localhost:8080/api/v1
+
+### Category Controller - First Category
+
+POST {{baseUrl}}/categories
+Content-Type: application/json
+
+{
+  "name": "Candy"
+}
+
+### Second category
+POST {{baseUrl}}/categories
+Content-Type: application/json
+
+{
+  "name": "Cleaning supplies"
+}
+
+### List all categories
+GET {{baseUrl}}/categories
+
+### Error: bad name request
+POST {{baseUrl}}/categories
+Content-Type: application/json
+
+{
+  "name": ""
+}
+
+### Error: duplicate category
+POST {{baseUrl}}/categories
+Content-Type: application/json
+
+{
+  "name": "Candy"
+}
+
+### Product Controller First product
+
+POST {{baseUrl}}/products
+Content-Type: application/json
+
+{
+  "name": "Laptop",
+  "price": 459.99,
+  "categoryId": 3
+}
+
+### Second product
+POST {{baseUrl}}/products
+Content-Type: application/json
+
+{
+  "name": "Summer Top",
+  "price": 29.99,
+  "categoryId": 1
+}
+
+### List all products
+GET {{baseUrl}}/products
+
+### Search product by name
+GET {{baseUrl}}/products/search?name=Laptop
+
+### Error: invalid/missing name
+POST {{baseUrl}}/products
+Content-Type: application/json
+
+{
+  "price": 49.99,
+  "categoryId": 1
+}
+
+### Error: invalid category id
+POST {{baseUrl}}/products
+Content-Type: application/json
+
+{
+  "name": "Winter jacket",
+  "price": 59.99,
+  "categoryId": 193020
+}
+
+### Customer Controller - Register Customer
+POST {{baseUrl}}/customers
+Content-Type: application/json
+
+{
+  "firstName": "Johnny",
+  "lastName": "Doebedo",
+  "email": "johnnny@email.com",
+  "password": "password123",
+  "street": "Main Street 2",
+  "city": "Gothenburg",
+  "zipCode": "41107"
+}
+
+### Register second customer
+POST {{baseUrl}}/customers
+Content-Type: application/json
+
+{
+  "firstName": "Jeremiah",
+  "lastName": "Deleone",
+  "email": "jeremiah@email.com",
+  "password": "password123",
+  "street": "Main Street 4",
+  "city": "Gothenburg",
+  "zipCode": "41113"
+}
+
+### Error: bad email format
+POST {{baseUrl}}/customers
+Content-Type: application/json
+
+{
+  "firstName": "Jerry",
+  "lastName": "Dean",
+  "email": "thisaint-anemail",
+  "password": "password123",
+  "street": "Secondary Street 4",
+  "city": "Gothenburg",
+  "zipCode": "42354"
+}
+
+### Error: search nonexistent id
+GET {{baseUrl}}/customers/339920
+
+### Order Controller - Place new order
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "customerId": 1,
+  "items": [
+    {"productId": 1, "quantity": 3},
+    {"productId": 4, "quantity": 2}
+  ]
+}
+
+### Error: invalid order - no items
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "customerId": 2,
+  "items": []
+}
+
+### Error: invalid quantity
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "customerId": 1,
+  "items": [
+    {"productId": 1, "quantity": 0}
+  ]
+}
+
+### Error: invalid product id
+POST {{baseUrl}}/orders
+Content-Type: application/json
+
+{
+  "customerId": 1,
+  "items": [
+    {"productId": 901920, "quantity": 2}
+  ]
+}
+
+###
+
+

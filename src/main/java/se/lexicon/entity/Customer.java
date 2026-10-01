@@ -52,11 +52,17 @@ public class Customer {
     @ToString.Exclude
     private List<Order> orders = new ArrayList<>();
 
-
-
     @PrePersist
     public void prePersist() {
         this.createdAt = Instant.now();
+    }
+
+    public Customer(String firstName, String lastName, String email, String password, Address address) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.address = address;
     }
 
 }

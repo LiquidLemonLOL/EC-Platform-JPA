@@ -9,6 +9,8 @@ import se.lexicon.dto.CustomerResponse;
 import se.lexicon.exception.DuplicateFoundException;
 import se.lexicon.service.CustomerService;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
@@ -50,11 +52,12 @@ public class CustomerServiceTest {
         );
 
         CustomerResponse response = customerService.register(request);
-        CustomerResponse found = customerService.findById(response.id());
+        Optional<CustomerResponse> found = customerService.findById(response.id());
 
-        assertEquals(response.id(), found.id());
-        assertEquals("John Doe", found.fullName());
-        assertEquals("john@example.com", found.email());
+        assertTrue(found.isPresent());
+        assertEquals(response.id(), found.get().id());
+        assertEquals("John Doe", found.get().fullName());
+        assertEquals("john@example.com", found.get().email());
     }
 
     @Test
@@ -90,10 +93,12 @@ public class CustomerServiceTest {
         assertEquals("Main Street 45", update.addressResponse().street());
         assertEquals("Johanna Doebby", update.fullName());
 
-        CustomerResponse found = customerService.findById(created.id());
-        assertEquals(created.id(), found.id());
-        assertEquals("Johanna Doebby", found.fullName());
-        assertEquals("johanna@example.com", found.email());
+        Optional<CustomerResponse> found = customerService.findById(created.id());
+
+        assertTrue(found.isPresent());
+        assertEquals(created.id(), found.get().id());
+        assertEquals("Johanna Doebby", found.get().fullName());
+        assertEquals("johanna@example.com", found.get().email());
     }
 
     @Test
